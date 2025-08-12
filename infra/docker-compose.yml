@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: legal
+      POSTGRES_PASSWORD: legal
+      POSTGRES_DB: legal_lens
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  minio:
+    image: minio/minio
+    command: server /data
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: miniopass
+    volumes:
+      - miniodata:/data
+    ports:
+      - "9000:9000"
+
+  web:
+    build: ./apps/web
+    env_file: .env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+  api:
+    build: ./apps/api
+    env_file: .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - ai-service
+
+  ai-service:
+    build: ./apps/ai-service
+    env_file: .env
+    ports:
+      - "8100:8100"
+    depends_on:
+      - minio
+
+volumes:
+  pgdata:
+  miniodata:
