@@ -1,16 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 // This defines a "User" table
 model User {
-  id        Int      @id @default(autoincrement()) // A unique number for each user
-  email     String   @unique                       // The user's email, must be unique
-  name      String?                                // The user's name (optional)
-  documents Document[]                             // A user can have many documents
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  documents Document[]
 }
 
 // This defines a "Document" table
 model Document {
-  id      Int    @id @default(autoincrement()) // A unique number for each document
-  ownerId Int                                  // Stores the ID of the user who owns it
-  owner   User   @relation(fields: [ownerId], references: [id]) // Links this to the User table
+  id      Int    @id @default(autoincrement())
+  ownerId Int
+  owner   User   @relation(fields: [ownerId], references: [id])
   title   String
-  ...
+  content String
 }
