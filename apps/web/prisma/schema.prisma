@@ -1,0 +1,16 @@
+// This defines a "User" table
+model User {
+  id        Int      @id @default(autoincrement()) // A unique number for each user
+  email     String   @unique                       // The user's email, must be unique
+  name      String?                                // The user's name (optional)
+  documents Document[]                             // A user can have many documents
+}
+
+// This defines a "Document" table
+model Document {
+  id      Int    @id @default(autoincrement()) // A unique number for each document
+  ownerId Int                                  // Stores the ID of the user who owns it
+  owner   User   @relation(fields: [ownerId], references: [id]) // Links this to the User table
+  title   String
+  ...
+}
