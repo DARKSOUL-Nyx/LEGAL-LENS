@@ -31,3 +31,32 @@ o	Store usage (API calls, tokens used)
 o	Enforce per-user limits for free tier
 o	Stripe integration for premium tier
 
+16 - 08 - 2025
+
+Working On API - Backend
+
+### Backend API phase 1 
+
+### Auth 
+    POST /auth/signup
+    POST /auth/login
+    GET  /AUTH/ME
+
+### Case Management 
+    POST /cases/(Upload the text documents)
+    GET /cases/:id
+    GET /cases/(list cases)
+
+### AI SERVICES
+    POST /ai/query
+    POST /ai/summarize/:caseID
+    POST /ai/recommend(similar cases/ legal precedents)
+
+
+## Testing the services 
+
+routes -> Postman 
+Controllers -> mock data
+Services -> unit tests
+utils -> small focused tests
+Middleware -> simulate requests with/without JWT, invalid body etc 

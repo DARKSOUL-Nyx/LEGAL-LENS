@@ -15,6 +15,16 @@ model User {
   documents Document[]
 }
 
+model Case {
+  id        Int      @id @default(autoincrement())
+  userID     
+  userID,
+  title,
+  description,
+  createdAt
+}
+
+
 // This defines a "Document" table
 model Document {
   id      Int    @id @default(autoincrement())
